@@ -25,4 +25,11 @@ elemento = document.images[2].getAttribute('src');
 
 elemento = document.scripts;
 
-console.log(elemento);
+let imagenes = document.images; //HTMLcollection
+let imagenesArray = Array.from(imagenes); //array
+
+imagenesArray.forEach(function(imagen) {
+    console.log(imagen);
+})
+
+console.log(imagenesArray);
