@@ -19,6 +19,8 @@ function cargarEventListeners(e) {
     carrito.addEventListener('click', eliminarCurso);
     //vaciar carrito
     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+    //Al cargar documento cargar localstorage
+    document.addEventListener('DOMContentLoaded', leerLocalStorage);
 }
 
 //funciones.
@@ -69,10 +71,15 @@ function eliminarCurso(e) {
 
     e.preventDefault();
 
-    let curso;
+    let curso, cursoId;
     if (e.target.classList.contains('borrar-curso')) {
         e.target.parentElement.parentElement.remove();
+        curso = e.target.parentElement.parentElement;
+        cursoId = curso.querySelector('a').getAttribute('data-id');
+
     }
+
+    eliminarCursoLocalStorage(cursoId);
 }
 
 //elimina los cursos del carrito en el dom
@@ -84,6 +91,9 @@ function vaciarCarrito(e) {
     while (listaCursos.firstChild) {
         listaCursos.removeChild(listaCursos.firstChild);
     }
+
+    //vaciar localStorage
+    vaciarLocalStorage();
     return false;
 }
 
@@ -115,4 +125,48 @@ function obtenerCursosLocalStorage() {
 
     return cursosLS;
 
+}
+
+//imprime los curso del locastorage en el carrito
+function leerLocalStorage() {
+
+    let cursosLS;
+    cursosLS = obtenerCursosLocalStorage();
+
+    cursosLS.forEach(function(curso) {
+
+        //construir el template
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><img width="100px"src="${curso.imagen}"></td>
+            <td>${curso.titulo}</td>
+            <td>${curso.precio}</td>
+            <td><a href="#" class="borrar-curso" data-id="${curso.id}">X</a>
+            </td>
+        `;
+        listaCursos.appendChild(row);
+    });
+}
+
+//elimina el curso por ID del localstorage
+function eliminarCursoLocalStorage(curso) {
+    let cursosLS;
+
+    //obtenemos arreglo de cursos
+    cursosLS = obtenerCursosLocalStorage();
+
+    //iteramos comparando el id del curso borrado con los del LS
+    cursosLS.forEach(function(cursoLS, index) {
+        if (cursoLS.id === curso) {
+            cursosLS.splice(index, 1);
+
+        }
+    });
+    //añade el arreglo actual a storage
+    localStorage.setItem('cursos', JSON.stringify(cursosLS));
+}
+
+//elimina todos los cursos de localstorage
+function vaciarLocalStorage() {
+    localStorage.clear();
 }
