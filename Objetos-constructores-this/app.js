@@ -1,40 +1,37 @@
-//string
-const nombre1 = 'Pedro';
-const nombre2 = new String('Pedro');
+function Cliente(nombre, saldo) {
+    this.nombre = nombre;
+    this.saldo = saldo;
 
-console.log(nombre1);
 
-console.log(nombre2)
-
-if (typeof nombre1 == typeof nombre2) {
-    console.log('Son iguales.')
-} else {
-
-    console.log('No son iguales.')
 }
 
-//boolean
-const boolean1 = true;
-const boolean2 = new Boolean(true);
-
-
-//funciones
-const f1 = function(a, b) {
-    return a + b;
+// Crear un prototipo
+Cliente.prototype.tipoCliente = function() {
+    if (this.saldo > 1000) {
+        tipo = 'Gold';
+    } else if (this.saldo > 500) {
+        tipo = 'Platino';
+    } else {
+        tipo = 'Normal';
+    }
+    return tipo;
 }
 
-const f2 = new Function('a', 'b', 'return a + b');
+// prototipo que imprime saldo y nombre
 
-// objetos
-const persona1 = {
-    nombre: 'Juan'
+Cliente.prototype.nombreClienteSaldo = function() {
+    return `Nombre: ${this.nombre} - Saldo: ${this.saldo} , Tipo: ${this.tipoCliente()}`;
 }
 
-const persona2 = new Object({ nombre: 'Juan' })
+// Retirar saldo
+Cliente.prototype.retirarSaldo = function(saldo) {
+    return this.saldo -= saldo;
+}
 
-// arreglos
-const arreglo1 = [1, 2, 3, 4];
-const arreglo2 = new Array(1, 2, 3, 4);
 
-console.log(arreglo1);
-console.log(arreglo2);
+const cliente1 = new Cliente('Pedro', 1400);
+
+
+console.log(cliente1.nombreClienteSaldo());
+cliente1.retirarSaldo(500);
+console.log(cliente1.nombreClienteSaldo());
