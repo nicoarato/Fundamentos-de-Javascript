@@ -5,33 +5,28 @@ function Cliente(nombre, saldo) {
 
 }
 
-// Crear un prototipo
-Cliente.prototype.tipoCliente = function() {
-    if (this.saldo > 1000) {
-        tipo = 'Gold';
-    } else if (this.saldo > 500) {
-        tipo = 'Platino';
-    } else {
-        tipo = 'Normal';
-    }
-    return tipo;
-}
 
 // prototipo que imprime saldo y nombre
 
 Cliente.prototype.nombreClienteSaldo = function() {
-    return `Nombre: ${this.nombre} - Saldo: ${this.saldo} , Tipo: ${this.tipoCliente()}`;
+    return `Nombre: ${this.nombre} - Saldo: ${this.saldo} `;
 }
-
-// Retirar saldo
-Cliente.prototype.retirarSaldo = function(saldo) {
-    return this.saldo -= saldo;
-}
-
 
 const cliente1 = new Cliente('Pedro', 1400);
+console.log(cliente1.nombreClienteSaldo());
 
 
-console.log(cliente1.nombreClienteSaldo());
-cliente1.retirarSaldo(500);
-console.log(cliente1.nombreClienteSaldo());
+
+function Empresa(nombre, saldo, telefono, tipo) {
+    Cliente.call(this, nombre, saldo); //Herencia de prototypes.
+    this.telefono = telefono;
+    this.tipo = tipo;
+}
+
+// heredar prototypes
+Empresa.prototype = Object.create(Cliente.prototype);
+
+const empresa = new Empresa('SASASA', 1000000, 123456789, 'Educacion');
+
+console.log(empresa);
+console.log(empresa.nombreClienteSaldo());
