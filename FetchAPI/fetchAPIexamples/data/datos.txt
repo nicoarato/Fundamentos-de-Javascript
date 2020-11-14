@@ -1,0 +1,7 @@
+corrales = ['Las toninas','Los adornos','Las palmas']
+cantidadVacas = [84,56,20]
+cantidadNovillos = [70,60,40]
+cantidadMamonas = [10,20,30]
+cantidadToros = [7,8,9]
+
+ultimos movimientos = []

@@ -1,0 +1,25 @@
+[{
+        "id": 1,
+        "nombre": "Las toninas",
+        "cantCorrales": 87,
+        "cantVaquillas": 87,
+        "cantVacas": 87
+
+    },
+    {
+        "id": 2,
+        "nombre": "Las flores",
+        "cantCorrales": 100,
+        "cantVaquillas": 140,
+        "cantVacas": 78
+
+    },
+    {
+        "id": 3,
+        "nombre": "San Martín",
+        "cantCorrales": 852,
+        "cantVaquillas": 156,
+        "cantVacas": 888
+
+    }
+]
